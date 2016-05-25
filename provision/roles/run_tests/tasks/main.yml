@@ -1,0 +1,6 @@
+---
+- name: Run tests
+  shell: source ./venv/bin/activate && py.test --create-db
+  args:
+    chdir: "{{ project_path }}/backend"
+    executable: /bin/bash

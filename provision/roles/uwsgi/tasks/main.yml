@@ -1,0 +1,82 @@
+---
+- name: Install backend packages
+  become: yes
+  apt: name={{ item }} state=present
+  with_items:
+    - nginx
+    - supervisor
+    - openssl
+
+- name: Remove original nginx config
+  become: yes
+  file:
+    path: /etc/nginx/sites-enabled/default
+    state: absent
+  notify: reload nginx
+
+- include: ssl.yml
+  when: ssl is defined
+
+- name: Create nginx sites
+  become: yes
+  template:
+    src: "nginx_{{ item }}.conf.j2"
+    dest: "/etc/nginx/sites-available/{{ project_name }}_{{ item }}.conf"
+    force: yes
+  with_items:
+    - backend
+    - frontend
+  notify: reload nginx
+
+- name: Enable nginx sites
+  become: yes
+  file:
+    src: "/etc/nginx/sites-available/{{ project_name }}_{{ item }}.conf"
+    dest: "/etc/nginx/sites-enabled/{{ project_name }}_{{ item }}.conf"
+    state: link
+  with_items:
+    - backend
+    - frontend
+  notify: reload nginx
+
+- name: Create static directory
+  become: yes
+  file:
+    path: "{{ django_static_root }}"
+    state: directory
+    mode: 0755
+    owner: "{{ ansible_ssh_user }}"
+
+- name: Collect static files
+  django_manage:
+    command: collectstatic
+    app_path: "{{ project_path }}/backend"
+    virtualenv: "{{ venv_path }}"
+  environment: "{{ django_env }}"
+
+- name: Create supervisor log directory
+  become: yes
+  file:
+    path: /var/log/supervisor
+    state: directory
+    mode: 0755
+
+- name: Create supervisor config
+  become: yes
+  template:
+    src: supervisor.conf.j2
+    dest: "/etc/supervisor/conf.d/{{ project_name }}.conf"
+    force: yes
+    mode: 0640
+
+- name: Build frontend
+  shell: npm run build
+  args:
+    chdir: "{{ project_path }}/frontend"
+  environment: "{{ frontend_env }}"
+
+- name: Restart backend
+  become: yes
+  supervisorctl:
+    name: "{{ project_name }}"
+    state: restarted

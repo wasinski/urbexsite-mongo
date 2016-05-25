@@ -1,0 +1,59 @@
+---
+- name: Add PostgreSQL repository key
+  become: yes
+  apt_key:
+    url: https://www.postgresql.org/media/keys/ACCC4CF8.asc
+    state: present
+
+- name: Add official PostgreSQL repository
+  become: yes
+  apt_repository:
+    repo: deb http://apt.postgresql.org/pub/repos/apt/ precise-pgdg main
+    state: present
+
+- name: Install PostgreSQL 9.5
+  become: yes
+  apt: name={{ item }} state=latest update_cache=true
+  with_items:
+    - postgresql-9.5
+    - postgresql-contrib-9.5
+    - libpq-dev
+    - python-psycopg2
+
+- name: Update pl_PL.UTF-8 locale
+  become: yes
+  command: /usr/sbin/locale-gen pl_PL.UTF-8
+
+- name: Restart PostgreSQL
+  become: yes
+  service:
+    name: postgresql
+    state: restarted
+
+- name: Create database
+  become: yes
+  become_user: postgres
+  postgresql_db:
+    name: "{{ db.name }}"
+    encoding: UTF-8
+    lc_collate: pl_PL.UTF-8
+    lc_ctype: pl_PL.UTF-8
+    template: template0
+
+- name: Create database user
+  become: yes
+  become_user: postgres
+  postgresql_user:
+    db: "{{ db.name }}"
+    user: "{{ db.user }}"
+    password: "{{ db.password }}"
+    login_password: "{{ db.password }}"
+
+- name: Apply user privileges
+  become: yes
+  become_user: postgres
+  postgresql_privs:
+    db: "{{ db.name }}"
+    role: "{{ db.user }}"
+    type: database
+    privs: ALL

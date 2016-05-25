@@ -1,0 +1,14 @@
+project_path: /vagrant
+django_debug: True
+domain: http://0.0.0.0:8000
+default_from_email: ""
+
+frontend_node_env: DEV
+frontend_env:
+  API_DOMAIN: "http://localhost:8000/"
+  NODE_ENV: "{{ frontend_node_env }}"
+
+db:
+  name: urbexsite
+  user: urbexsite
+  password: pass

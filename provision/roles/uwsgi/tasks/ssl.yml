@@ -1,0 +1,13 @@
+---
+- name: Generate dhparam.pem file
+  become: yes
+  command: openssl dhparam -out /etc/ssl/dhparam.pem 2048
+  args:
+    creates: /etc/ssl/dhparam.pem
+
+- name: Create ssl_params file
+  become: yes
+  copy:
+    src: ssl_params
+    dest: /etc/nginx/ssl_params
+    mode: 0644

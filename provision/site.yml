@@ -1,0 +1,17 @@
+---
+- hosts: all
+  roles:
+    - backend
+    - frontend
+
+- hosts: develop
+  roles:
+    - tmux
+
+- hosts: qa
+  roles:
+    - run_tests
+
+- hosts: production
+  roles:
+    - uwsgi

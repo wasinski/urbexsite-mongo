@@ -1,0 +1,35 @@
+---
+- name: Install packages
+  become: yes
+  apt: name={{ item }} state=present
+  with_items:
+    - curl
+
+- name: Download Node.js install script
+  become: yes
+  get_url:
+    url: https://deb.nodesource.com/setup_6.x
+    dest: /tmp/node_setup_6.x
+    mode: 0755
+
+- name: Add Node.js repository
+  become: yes
+  shell: /tmp/node_setup_6.x
+
+- name: Install Node.js
+  become: yes
+  apt: name=nodejs state=latest
+
+- name: Install npm globally
+  become: yes
+  shell: npm install -g npm
+
+- name: Install frontend dependencies
+  npm:
+    path: "{{ project_path }}/frontend"
+
+- name: Create Frontend environment
+  template:
+    src: "config.js.j2"
+    dest: "{{ project_path }}/frontend/app/config.js"
+    force: yes

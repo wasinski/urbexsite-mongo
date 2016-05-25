@@ -1,0 +1,30 @@
+---
+- name: Install packages
+  become: yes
+  apt: name={{ item }} state=present
+  with_items:
+    - tmux
+    - ruby-dev
+    - ruby
+
+- name: Install tmuxinator
+  become: yes
+  command: gem install tmuxinator
+
+- name: Create tmuxinator directory
+  file:
+    path: ~/.tmuxinator/
+    state: directory
+    mode: 0750
+
+- name: Create the tmux config
+  template:
+    src: tmuxinator.conf.j2
+    dest: "~/.tmuxinator/{{ project_name }}.yml"
+    force: yes
+
+- name: Add run command
+  lineinfile:
+    regexp: alias run
+    line: alias run="tmuxinator start {{ project_name }}"
+    dest: ~/.bashrc

@@ -1,0 +1,3 @@
+{% for key, value in frontend_env.iteritems() %}
+module.exports.{{ key }}="{{ value }}";
+{% endfor %}

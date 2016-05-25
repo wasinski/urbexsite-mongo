@@ -1,0 +1,9 @@
+[program:{{ project_name }}]
+command = {{ venv_path }}/bin/uwsgi --ini {{ project_path }}/backend/uwsgi.ini
+directory = {{ project_path }}/backend
+autostart = true
+autorestart = true
+stderr_logfile = /var/log/supervisor/{{ project_name }}.err.log
+stdout_logfile = /var/log/supervisor/{{ project_name }}.out.log
+user = {{ ansible_ssh_user }}
+environment={% for key, value in django_env.iteritems() %}{{ key }}="{{ value }}",{% endfor %}

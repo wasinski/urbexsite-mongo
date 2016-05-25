@@ -1,0 +1,17 @@
+nginx_host:
+frontend_node_env: DEV
+domain:
+default_from_email: ""
+robots_allow: "Disallow"
+
+frontend_env:
+  API_DOMAIN: "http://api.{{ nginx_host }}/api/"
+  NODE_ENV: "{{ frontend_node_env }}"
+
+db:
+  name: urbexsite
+  user: urbexsite
+  password: pass
+
+
+prerender_io_token: XX

@@ -1,0 +1,28 @@
+upstream {{ project_name }}_django {
+    server unix:///tmp/skygatewww_uwsgi.sock;
+}
+
+server {
+    server_name api.{{ nginx_host }};
+
+    listen 80;
+
+    access_log /var/log/nginx/{{ project_name }}_backend.access.log;
+    error_log /var/log/nginx/{{ project_name }}_backend.error.log;
+
+    send_timeout 300s;
+    client_max_body_size 500m;
+
+    location /static {
+        alias {{ django_static_root }};
+    }
+
+    location /media {
+        alias {{ django_media_root }};
+    }
+
+    location / {
+        include /etc/nginx/uwsgi_params;
+        uwsgi_pass {{ project_name }}_django;
+    }
+}

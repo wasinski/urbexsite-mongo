@@ -1,0 +1,34 @@
+project_name: urbexsite
+project_path: "~/build/TomaszWasinski/urbexsite"
+venv_path: "{{ project_path }}/backend/venv"
+
+nginx_host:
+
+database: POSTGRESQL
+db:
+  name: urbexsite
+  user: urbexsite
+  password: 5yV68dsad24942M6cT
+
+robots_allow: "Allow"
+domain: ""
+default_from_email: ""
+django_debug: False
+django_allowed_hosts: ".{{ nginx_host }}"
+django_static_root: "{{ project_path }}/backend/static"
+django_media_root: "{{ project_path }}/backend/media"
+django_env:
+  DATABASE: "{{ database }}"
+  DEBUG: "{{ django_debug }}"
+  DOMAIN: "{{ domain }}"
+  DEFAULT_FROM_EMAIL: "{{ default_from_email }}"
+  STATIC_ROOT: "{{ django_static_root }}"
+  ALLOWED_HOSTS: "{{ django_allowed_hosts }}"
+  DB_NAME: "{{ db.name }}"
+  DB_USER: "{{ db.user }}"
+  DB_PASS: "{{ db.password }}"
+
+frontend_node_env: PRODUCTION
+frontend_env:
+  API_DOMAIN: "https://api.{{ nginx_host }}/api/"
+  NODE_ENV: "{{ frontend_node_env }}"
