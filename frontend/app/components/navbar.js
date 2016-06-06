@@ -6,7 +6,7 @@ class Nav extends React.Component {
     render() {
         return (
             <div>
-            <h1>Shopping list</h1>
+            <h1>Urbex Site</h1>
                 <ul role="nav">
                     <li><NavLink to="/">Home</NavLink></li>
                     <li><NavLink to="/login">Login</NavLink></li>
