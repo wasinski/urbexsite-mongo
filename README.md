@@ -1,5 +1,6 @@
 Urbex Site
 ======
+[![Build Status](https://travis-ci.org/wasinski/urbexsite.svg?branch=develop)](https://travis-ci.org/wasinski/urbexsite)
 
 this project is in an hatching state, and for now more of a playground than a real deal, but who knows what will come out of it?
 
@@ -14,7 +15,7 @@ open to vandals, taggers, scrappers etc., because of that locations get ruined, 
 
 ###### Tech. stack:
 This project is using **Django** and **Django REST Framework** on the backend.
-Frontend part is **currently** setup for React stack, but it won't be developed by me [@wasinski](I thought about it but dropped the idea), so if some frontend dev. wishes to take part in this project feel free to contact me, whichever is the tech. of your choosing.
+Frontend part is **currently** setup for React stack, but it won't be developed by me [@wasinski](https://github.com/wasinski/) (I thought about it but dropped the idea), so if some frontend dev. wishes to take part in this project feel free to contact me, whichever is the tech. of your choosing.
 
 Install
 ------
@@ -24,4 +25,4 @@ including **Django** on the backend and **Webpack** on the front.
 
 Authors
 ------
-@wasinski
+[@wasinski](https://github.com/wasinski/)

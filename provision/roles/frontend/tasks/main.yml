@@ -8,7 +8,7 @@
 - name: Download Node.js install script
   become: yes
   get_url:
-    url: https://deb.nodesource.com/setup_6.x
+    url: http://deb.nodesource.com/setup_6.x
     dest: /tmp/node_setup_6.x
     mode: 0755
 
