@@ -13,5 +13,7 @@ db:
   user: urbexsite
   password: pass
 
-
-prerender_io_token: XX
+mongodb:
+  name: urbexsite
+  user: urbexsite
+  password: pass

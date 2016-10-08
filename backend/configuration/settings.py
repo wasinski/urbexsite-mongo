@@ -1,6 +1,6 @@
 import sys
-
 import os
+import mongoengine
 from django.core.exceptions import ImproperlyConfigured
 
 
@@ -110,6 +110,15 @@ else:
             'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
         }
     }
+
+#  ------  MongoDB section
+_MONGODB_HOST = 'localhost'
+_MONGODB_NAME = get_env_variable('MONGO_NAME')
+_MONGODB_USER = get_env_variable('MONGO_USER')
+_MONGODB_PASSWD = get_env_variable('MONGO_PASS')
+_MONGODB_DATABASE_HOST = 'mongodb://{}:{}@{}/{}'.format(_MONGODB_USER, _MONGODB_PASSWD, _MONGODB_HOST, _MONGODB_NAME)
+mongoengine.connect(_MONGODB_NAME, host=_MONGODB_DATABASE_HOST)
+
 
 AUTH_PASSWORD_VALIDATORS = [
     {

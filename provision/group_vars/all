@@ -8,7 +8,12 @@ database: POSTGRESQL
 db:
   name: urbexsite
   user: urbexsite
-  password: 5yV68dsad24942M6cT
+  password: this-fancy-password-aint-for-production
+
+mongodb:
+  name: urbexsite
+  user: urbexsite
+  password: this-fancy-password-aint-for-production
 
 robots_allow: "Allow"
 domain: ""
@@ -27,6 +32,9 @@ django_env:
   DB_NAME: "{{ db.name }}"
   DB_USER: "{{ db.user }}"
   DB_PASS: "{{ db.password }}"
+  MONGO_NAME: "{{ mongodb.name }}"
+  MONGO_USER: "{{ mongodb.user }}"
+  MONGO_PASS: "{{ mongodb.password }}"
 
 frontend_node_env: PRODUCTION
 frontend_env:

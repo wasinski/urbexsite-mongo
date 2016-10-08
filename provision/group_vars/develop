@@ -12,3 +12,8 @@ db:
   name: urbexsite
   user: urbexsite
   password: pass
+
+mongodb:
+  name: urbexsite
+  user: urbexsite
+  password: pass

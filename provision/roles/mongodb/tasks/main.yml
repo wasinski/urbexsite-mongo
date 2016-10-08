@@ -1,0 +1,33 @@
+---
+- name: Add MongoDB repository key
+  become: yes
+  apt_key:
+    url: http://www.mongodb.org/static/pgp/server-3.4.asc
+    state: present
+    validate_certs: no  # TODO: change this to yes after it's fixed
+
+- name: Add official MongoDB repository
+  become: yes
+  apt_repository:
+    repo: deb http://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.3 multiverse
+    state: present
+
+- name: Install MongoDB
+  become: yes
+  apt: name={{ item }} state=latest update_cache=true
+  with_items:
+    - python3-pymongo
+    - mongodb
+
+- name: Create mongo.service file
+  become: yes
+  template:
+    src: mongod.service_template
+    dest: /lib/systemd/system/mongod.service
+    force: yes
+
+- name: Restart MongoDB
+  become: yes
+  service:
+    name: mongodb
+    state: restarted

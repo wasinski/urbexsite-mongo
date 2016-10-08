@@ -22,7 +22,7 @@
     virtualenv: "{{ venv_path }}"
     virtualenv_python: python3
 
-# - name: Run migrations
+# - name: Run migrations TODO: uncomment it
 #   django_manage:
 #     command: migrate --noinput
 #     app_path: "{{ project_path }}/backend"
