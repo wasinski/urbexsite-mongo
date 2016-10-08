@@ -15,15 +15,16 @@ With most of the sites up on the net there is one problem: they are more or less
 open to vandals, taggers, scrappers etc., because of that locations get ruined, and explorers don't want to share most interesting locations. This project is hopefully going to deal with that issue.
 
 ###### Tech. stack:
-- Django + Postgresql
+- Django
 - Django REST Framework
-- Mongoengine
+- Postgresql
+- MongoDB with Mongoengine
 - Redis
 - Celery
 
-  Testing: Pytest, Factory-boy
+  Testing: Pytest, Factoryboy
 
-  Provision: Vagrant & Ansible & nginx
+  Provision: Vagrant & Ansible
 
   Frontend part is *currently* setup for React stack, but I'm focusing on the backend and API for now.
 
@@ -32,7 +33,3 @@ Install
 **Vagrant** and **Ansible** v2 are required. After clone run `vagrant up` -> `vagrant ssh`
 and `run` on the guest machine. This should bring up a **tmux** session with 4 terminals,
 including **Django** on the backend and **Webpack** on the front.
-
-Authors
-------
-[@wasinski](https://github.com/wasinski/)
