@@ -1,6 +1,7 @@
 ---
 - name: Run tests
   shell: source ./venv/bin/activate && py.test --create-db
+  environment: "{{ django_env }}"
   args:
     chdir: "{{ project_path }}/backend"
     executable: /bin/bash
