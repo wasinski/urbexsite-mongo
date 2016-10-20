@@ -1,4 +1,6 @@
+import mongoengine as me
 from .settings import *
+
 
 TESTS_IN_PROGRESS = True
 
@@ -7,9 +9,13 @@ DATABASES['default'] = {
     'NAME': 'test_db.sqlite3',
 }
 
+
 PASSWORD_HASHERS = (
     'django.contrib.auth.hashers.MD5PasswordHasher',
 )
 
 DEBUG = False
 TEMPLATE_DEBUG = False
+
+me.connection.disconnect()  # disconnect development db first
+# me.connect('mongoenginetest', host='mongomock://localhost')

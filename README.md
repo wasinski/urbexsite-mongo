@@ -22,7 +22,7 @@ open to vandals, taggers, scrappers etc., because of that locations get ruined, 
 - Redis
 - Celery
 
-  Testing: Pytest, Factoryboy
+  Testing: Pytest, Factoryboy, Mongomock
 
   Provision: Vagrant & Ansible
 

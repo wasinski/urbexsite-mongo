@@ -30,10 +30,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # apps
     'users',
+    'sites',
 
     # extensions
     'django_extensions',
     'rest_framework',
+    'rest_framework_mongoengine',
 ]
 
 MIDDLEWARE_CLASSES = [

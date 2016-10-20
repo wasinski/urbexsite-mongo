@@ -1,5 +1,6 @@
 project_path: /vagrant
 django_debug: True
+django_allowed_hosts: 0.0.0.0, 127.0.0.1, localhost
 domain: http://0.0.0.0:8000
 default_from_email: ""
 
