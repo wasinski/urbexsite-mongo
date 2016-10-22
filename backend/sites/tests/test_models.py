@@ -1,17 +1,11 @@
-import mongoengine as me
-from random import random
+import pytest
+from utils.fixtures import mongomock
 
 from ..models import Site
 
 
+@pytest.mark.usefixtures('mongomock')
 class SiteTests:
-
-    def setup_method(self):
-        self.db = me.connect('mongoenginetest', host='mongodb://localhost')
-
-    def teardown_method(self):
-        self.db.drop_database('mongoenginetest')
-        self.db.close()
 
     def test_object_creation(self):
         site = Site(name='test_site')

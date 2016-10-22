@@ -10,8 +10,8 @@ faker = FakerFactory.create()
 
 
 def get_random_coordinates():
-    coord_generator = fuzzy.FuzzyDecimal(-180, 180, 6)
-    return [str(coord_generator.fuzz()), str(coord_generator.fuzz())]
+    coord_generator = fuzzy.FuzzyFloat(-180.0, 180.0)
+    return [coord_generator.fuzz(), coord_generator.fuzz()]
 
 
 class CategoryFactory(MongoEngineFactory):
