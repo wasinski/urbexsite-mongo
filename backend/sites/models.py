@@ -31,3 +31,8 @@ class Site(me.Document):
 
     def __str__(self):
         return self.name
+
+    @classmethod
+    def update_modified(cls, sender, document, **kwargs):
+        """ used as a pre_save signal """
+        document.modified = timezone.now()
