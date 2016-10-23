@@ -13,3 +13,5 @@ mongoengine==0.10.6
 blinker==1.4
 mongomock==3.6.0
 django-rest-framework-mongoengine==3.3.0
+django-allauth==0.28.0
+django-rest-auth==0.8.1

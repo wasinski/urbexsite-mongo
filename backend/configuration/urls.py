@@ -14,10 +14,9 @@ drf_router.register(r'users', UserCreationFormViewSet)
 mongo_router.register(r'sites', SiteViewSet)
 
 urlpatterns = [
-    url(r'^', include(drf_router.urls)),
-    url(r'^', include(mongo_router.urls)),
+    url(r'^api/', include(drf_router.urls)),
+    url(r'^api/', include(mongo_router.urls)),
+    url(r'^api/accounts/', include('rest_auth.urls')),
+    url(r'^api/accounts/registration/', include('rest_auth.registration.urls')),
     url(r'^admin/', admin.site.urls),
-    url(r'^confirm/(?P<activation_key>[0-9a-z-]+)/', register_confirm, name='activation'),
-    url(r'^api-token-auth/', obtain_jwt_token, name='token-auth'),
-    url(r'^api-token-verify/', verify_jwt_token, name='token-verify'),
 ]

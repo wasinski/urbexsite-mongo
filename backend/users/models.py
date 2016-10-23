@@ -31,18 +31,11 @@ class CustomUserManager(BaseUserManager):
         return account
 
 
-GENDER_CHOICES = (
-    ('M', 'Male'),
-    ('F', 'Female'),
-)
-
-
 class User(AbstractBaseUser):
 
     email = models.EmailField(unique=True, db_index=True)
     username = models.CharField(max_length=45, unique=True)
     date_joined = models.DateField(auto_now_add=True, editable=False, blank=True, null=True)
-    gender = models.CharField(max_length=1, blank=True, null=True, choices=GENDER_CHOICES)
     activation_key = models.UUIDField(default=uuid.uuid4, editable=False)
     is_active = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
