@@ -18,4 +18,3 @@ DEBUG = False
 TEMPLATE_DEBUG = False
 
 me.connection.disconnect()  # disconnect development db first
-# me.connect('mongoenginetest', host='mongomock://localhost')

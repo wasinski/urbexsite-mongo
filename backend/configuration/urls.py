@@ -5,13 +5,13 @@ from rest_framework_mongoengine.routers import DefaultRouter as MongoDefaultRout
 from rest_framework_jwt.views import obtain_jwt_token, verify_jwt_token
 
 from users.views import UserCreationFormViewSet, register_confirm
-from sites.views import SiteViewSet
+from locations.views import LocationViewSet
 
 drf_router = DefaultRouter()
 mongo_router = MongoDefaultRouter()
 
 drf_router.register(r'users', UserCreationFormViewSet)
-mongo_router.register(r'sites', SiteViewSet)
+mongo_router.register(r'locations', LocationViewSet)
 
 urlpatterns = [
     url(r'^api/', include(drf_router.urls)),

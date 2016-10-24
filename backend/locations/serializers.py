@@ -1,10 +1,10 @@
 from rest_framework_mongoengine import serializers
 
-from .models import Site
+from .models import Location
 
 
-class SiteSerializer(serializers.DocumentSerializer):
+class LocationSerializer(serializers.DocumentSerializer):
 
     class Meta:
-        model = Site
+        model = Location
         fields = ('id', 'name', 'description', 'status', 'coordinates', 'modified', 'created')

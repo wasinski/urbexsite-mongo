@@ -8,11 +8,11 @@ class Category(me.EmbeddedDocument):
     description = models.TextField(blank=True)
 
 
-class Site(me.Document):
+class Location(me.Document):
     ABANDONED = 'abandoned'
     INACTIVE = 'inactive'
     ACTIVE = 'active'
-    site_status = (
+    location_status = (
         (ABANDONED, 'Abandoned'),
         (INACTIVE, 'Non-existent'),
         (ACTIVE, 'Active'),
@@ -22,7 +22,7 @@ class Site(me.Document):
     categories = me.EmbeddedDocumentListField(Category)
     description = me.StringField()
     coordinates = me.GeoPointField()
-    status = me.StringField(max_length=10, choices=site_status, default=ABANDONED)
+    status = me.StringField(max_length=10, choices=location_status, default=ABANDONED)
     modified = me.DateTimeField(required=True, default=timezone.now)
 
     @property

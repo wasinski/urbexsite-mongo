@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
 
     # extensions
     'django_extensions',
@@ -42,7 +43,7 @@ INSTALLED_APPS = [
 
     # apps
     'users',
-    'sites',
+    'locations',
 ]
 
 MIDDLEWARE_CLASSES = [

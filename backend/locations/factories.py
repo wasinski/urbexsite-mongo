@@ -3,7 +3,7 @@ import factory.fuzzy as fuzzy
 from factory.mongoengine import MongoEngineFactory
 from faker import Factory as FakerFactory
 
-from .models import Category, Site
+from .models import Category, Location
 
 
 faker = FakerFactory.create()
@@ -23,11 +23,11 @@ class CategoryFactory(MongoEngineFactory):
         inline_args = ('name', )
 
 
-class SiteFactory(MongoEngineFactory):
+class LocationFactory(MongoEngineFactory):
     name = f.Sequence(lambda n: 'location %s' % n)
     description = f.LazyAttribute(lambda x: faker.text())
     coordinates = f.LazyAttribute(lambda x: get_random_coordinates())
 
     class Meta:
-        model = Site
+        model = Location
         inline_args = ('name', )
