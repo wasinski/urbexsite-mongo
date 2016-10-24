@@ -18,7 +18,7 @@ client = APIClient()
 class UserCreationTests:
 
     @pytest.fixture
-    def payload(request):
+    def payload(self, request):
         return {
             'username': 'test_user',
             'email': 'test@example.com',
@@ -27,7 +27,7 @@ class UserCreationTests:
         }
 
     @pytest.fixture
-    def registration(request):
+    def registration(self, request):
         return '/api/accounts/registration/'
 
     def test_success_user_creation(self, payload, registration):
@@ -51,14 +51,14 @@ class UserCreationTests:
 class UserLoginTests:
 
     @pytest.fixture
-    def payload(request):
+    def payload(self, request):
         return {
             'username': 'test_user',
             'password': 'Password123$%^',
         }
 
     @pytest.fixture
-    def login(request):
+    def login(self, request):
         return '/api/accounts/login/'
 
     def test_success_auth_user(self, login, payload):
@@ -73,50 +73,25 @@ class UserLoginTests:
         assert response.status_code is status.HTTP_400_BAD_REQUEST, response.data
 
 
-@pytest.mark.skip("refactoring")
 @pytest.mark.django_db
-class UserViewPermissionTests:
+class UserDetailsViewPermissionTests:
 
-    @pytest.fixture(autouse=True)
-    def setUp(self):
-        self.user = UserFactory.create()
-        self.data = {
-            'email': self.user.email,
-            'password': 'pass',
-        }
-        self.registration = reverse('token-auth')
-        assert client.login(email=self.user.email, password='pass')
+    @pytest.fixture
+    def user_details(self, request):
+        return '/api/accounts/user/'
 
-    def test_authenticated_user_details(self):
-        response = client.get(reverse('user-detail', args=[self.user.pk]), follow=True,
-                              content_type='application/json')
+    @pytest.fixture
+    def auth_client(self, request):
+        user = User.objects.create(email='a@abc.com', password='123', username='abc')
+        client.force_login(user)
+        yield client
+        client.logout()
+
+    def test_authenticated_user_details(self, user_details, auth_client):
+        response = auth_client.get(user_details)
         assert response.status_code is status.HTTP_200_OK
-        assert response.data['username'] == self.user.username
 
-    def test_not_authenticated_user_details(self):
+    def test_not_authenticated_user_details(self, user_details):
         self.another_user = UserFactory.create()
-        response = client.get(reverse('user-detail', args=[self.user.pk]), follow=True,
-                              content_type='application/json')
-        assert response.status_code is status.HTTP_200_OK
-        assert response.data['username'] != self.another_user.username
-
-
-@pytest.mark.skip("refactoring")
-@pytest.mark.django_db
-class UserViewSetTests:
-
-    @pytest.fixture(autouse=True)
-    def setUp(self):
-        self.user_one = UserFactory.create()
-        self.user_two = UserFactory.create()
-        self.user_three = UserFactory.create()
-
-    def test_users_list(self):
-        response = client.get(reverse('user-list'), follow=True, content_type='application/json')
-        assert response.status_code is status.HTTP_200_OK
-        assert len(response.data) == User.objects.all().count()
-
-    def test_invalid_user(self):
-        response = client.get(reverse('user-detail', args=['5']), follow=True,
-                              content_type='application/json')
-        assert response.status_code is status.HTTP_404_NOT_FOUND  # user not found
+        response = client.get(user_details)
+        assert response.status_code is status.HTTP_403_FORBIDDEN
