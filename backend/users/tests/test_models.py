@@ -1,6 +1,4 @@
 import pytest
-from ..factories import UserFactory
-from ..models import User
 
 
 @pytest.mark.skip("refactoring")

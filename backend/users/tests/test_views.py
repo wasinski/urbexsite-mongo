@@ -7,7 +7,6 @@ from django.conf import settings
 from django.contrib.auth import get_user_model
 from rest_framework import status
 from rest_framework.test import APIClient
-from ..factories import UserFactory
 
 
 User = get_user_model()
@@ -92,6 +91,5 @@ class UserDetailsViewPermissionTests:
         assert response.status_code is status.HTTP_200_OK
 
     def test_not_authenticated_user_details(self, user_details):
-        self.another_user = UserFactory.create()
         response = client.get(user_details)
         assert response.status_code is status.HTTP_403_FORBIDDEN

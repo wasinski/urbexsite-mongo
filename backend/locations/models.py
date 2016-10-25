@@ -4,8 +4,8 @@ from django.utils import timezone
 
 
 class Category(me.EmbeddedDocument):
-    name = models.CharField(max_length=20)
-    description = models.TextField(blank=True)
+    name = me.StringField(max_length=20, required=True)
+    description = me.StringField()
 
 
 class Location(me.Document):

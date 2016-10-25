@@ -1,6 +1,4 @@
 import pytest
-from ..factories import UserFactory
-from ..serializers import UserCreationSerializer
 
 
 @pytest.mark.skip("refactoring")
