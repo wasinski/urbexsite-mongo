@@ -2,9 +2,7 @@ Urbex Site
 ======
 [![Build Status](https://travis-ci.org/wasinski/urbexsite.svg?branch=develop)](https://travis-ci.org/wasinski/urbexsite)
 
-**This is my latest playground**, but who knows what will come out of it? ;)
-
-A lot of the **code is scattered on many branches**, so pls. do not just checkout master and develop.
+**This is a playground of a playground ;)** i.e. fork of [this project](https://github.com/wasinski/urbexsite). I'm trying to integrate here MongoDB with PostgreSQL in a Django project.
 
 About
 ------
@@ -19,6 +17,7 @@ open to vandals, taggers, scrappers etc., because of that locations get ruined, 
 - Django REST Framework
 - Postgresql
 - MongoDB with Mongoengine
+- Django-allauth and django-auth-rest
 - Redis
 - Celery
 
