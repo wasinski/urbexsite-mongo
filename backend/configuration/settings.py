@@ -21,6 +21,8 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'kr%c(bvk1!w0*lr2fpq2+7e(67b-p&3)nxb_$
 
 ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '').split()
 
+SITE_ID = 1
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -28,14 +30,20 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # apps
-    'users',
-    'sites',
+    'django.contrib.sites',
 
     # extensions
     'django_extensions',
     'rest_framework',
     'rest_framework_mongoengine',
+    'allauth',
+    'allauth.account',
+    'rest_auth',
+    'rest_auth.registration',
+
+    # apps
+    'users',
+    'locations',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -58,6 +66,8 @@ REST_FRAMEWORK = {
         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
     ),
 }
+
+REST_USE_JWT = True
 
 ROOT_URLCONF = 'configuration.urls'
 
@@ -154,7 +164,13 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.environ.get('STATIC_ROOT')
 
 # Our custom user model
-AUTH_USER_MODEL = 'users.User'
+### TODO: AUTH_USER_MODEL = 'users.User'
+
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
+
 
 # Celery settings
 BROKER_URL = 'redis://127.0.0.1:6379/0'
