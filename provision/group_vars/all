@@ -1,5 +1,5 @@
-project_name: urbexsite
-project_path: "~/build/wasinski/urbexsite"
+project_name: urbexsite-mongo
+project_path: "~/build/wasinski/{{ project_name }}"
 venv_path: "{{ project_path }}/backend/venv"
 
 nginx_host:
